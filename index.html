@@ -301,7 +301,7 @@
         .footer-legal-links a { color:var(--text-muted); text-decoration:none; font-size:0.75rem; transition:var(--transition); border-bottom:1px solid transparent; cursor:pointer; }
         .footer-legal-links a:hover { color:var(--accent); border-bottom-color:var(--accent); }
 
-        .sticky-cta { position:fixed; bottom:20px; right:20px; z-index:999; display:flex; flex-direction:column; gap:10px; align-items:flex-end; }
+        .sticky-cta { position:fixed; bottom:20px; right:20px; z-index:999; display:flex; flex-direction:row; gap:10px; align-items:flex-end; }
         .sticky-btn { width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; border:none; cursor:pointer; transition:var(--transition); box-shadow:0 4px 15px rgba(0,0,0,0.3); }
         .sticky-btn-primary { background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:white; animation:pulse-glow 2s infinite; }
         .sticky-btn-primary:hover { transform:scale(1.08); }
@@ -420,27 +420,24 @@
     
         /* BACK TO TOP */
         .back-to-top {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             background: var(--bg-card);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
             cursor: pointer;
-            z-index: 998;
             opacity: 0;
             transform: translateY(20px);
             pointer-events: none;
             transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            flex-shrink: 0;
         }
         .back-to-top.visible {
             opacity: 1;
@@ -455,7 +452,7 @@
         }
         .back-to-top:active { transform: scale(0.95); }
         @media (max-width: 768px) {
-            .back-to-top { bottom: 140px; right: 16px; width: 44px; height: 44px; font-size: 1.1rem; }
+            .back-to-top { width: 48px; height: 48px; font-size: 1.1rem; }
         }
 
     </style>
@@ -898,9 +895,8 @@
         </div>
     </footer>
 
-        <button class="back-to-top" id="backToTop" aria-label="Наверх" onclick="scrollToTop()">↑</button>
-
     <div class="sticky-cta" aria-label="Быстрые действия">
+        <button class="back-to-top" id="backToTop" aria-label="Наверх" onclick="scrollToTop()">↑</button>
         <button class="sticky-btn sticky-btn-secondary" id="stickyPhone" aria-label="Позвонить"><span>📞</span> +375 (29) 364-17-18</button>
         <a href="tel:+375293641718" class="sticky-btn sticky-btn-primary" aria-label="Позвонить сейчас"><span>📞</span></a>
     </div>
