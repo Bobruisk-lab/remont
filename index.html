@@ -134,11 +134,12 @@
         .animate-on-scroll.delay-2 { transition-delay:0.2s; }
         .animate-on-scroll.delay-3 { transition-delay:0.3s; }
         .animate-on-scroll.delay-4 { transition-delay:0.4s; }
-        .noise-overlay { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999; opacity:0.025; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
-        .gradient-orb { position:absolute; border-radius:50%; filter:blur(80px); opacity:0.12; pointer-events:none; animation:float 8s ease-in-out infinite; }
-        .orb-1 { width:400px; height:400px; background:var(--accent); top:-5%; right:-15%; }
-        .orb-2 { width:300px; height:300px; background:#6366f1; bottom:5%; left:-15%; animation-delay:2s; opacity:0.08; }
-        .orb-3 { width:250px; height:250px; background:#ec4899; top:35%; right:10%; animation-delay:4s; opacity:0.06; }
+        .noise-overlay { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999; opacity:0.02; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+        @media (max-width: 768px) { .noise-overlay { display: none; } }
+        .gradient-orb { position:absolute; border-radius:50%; filter:blur(60px); opacity:0.12; pointer-events:none; animation:float 8s ease-in-out infinite; }
+        .orb-1 { width:300px; height:300px; background:var(--accent); top:-5%; right:-15%; opacity:0.08; }
+        .orb-2 { display:none; }
+        .orb-3 { display:none; }
 
         /* NAV */
         nav { position:fixed; top:0; left:0; right:0; z-index:1000; height:var(--nav-height); display:flex; align-items:center; transition:var(--transition); backdrop-filter:blur(0px); background:transparent; }
@@ -305,9 +306,7 @@
         .sticky-btn { width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; border:none; cursor:pointer; transition:var(--transition); box-shadow:0 4px 15px rgba(0,0,0,0.3); }
         .sticky-btn-primary { background:linear-gradient(135deg,var(--accent),var(--accent-dark)); color:white; animation:pulse-glow 2s infinite; }
         .sticky-btn-primary:hover { transform:scale(1.08); }
-        .sticky-btn-secondary { background:var(--bg-card); backdrop-filter:blur(20px); border:1px solid var(--border); color:var(--text-primary); width:auto; padding:0 20px; border-radius:50px; font-size:0.85rem; font-weight:600; gap:6px; opacity:0; transform:translateY(20px); pointer-events:none; transition:var(--transition); }
-        .sticky-btn-secondary.visible { opacity:1; transform:translateY(0); pointer-events:all; }
-        .sticky-btn-secondary:hover { border-color:var(--border-hover); background:rgba(245,158,11,0.1); }
+        
 
         /* MOBILE */
         @media (max-width:1024px) {
@@ -383,26 +382,29 @@
         /* COOKIE BANNER */
         .cookie-banner {
             position: fixed;
-            bottom: 20px;
+            bottom: 90px;
             left: 20px;
             right: 20px;
             max-width: 1280px;
             margin: 0 auto;
-            background: var(--bg-card);
-            backdrop-filter: blur(20px) saturate(1.5);
+            background: var(--bg-secondary);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 20px 24px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
-            z-index: 9998;
-            box-shadow: var(--shadow);
-            transform: translateY(150%);
-            transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+            gap: 12px;
+            z-index: 10000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
         }
-        .cookie-banner.show { transform: translateY(0); }
+        .cookie-banner.show {
+            opacity: 1;
+            visibility: visible;
+        }
         .cookie-banner p { color: var(--text-secondary); font-size: 0.9rem; margin: 0; flex: 1; line-height: 1.5; }
         .cookie-banner a { color: var(--accent); text-decoration: underline; }
         .cookie-buttons { display: flex; gap: 10px; flex-shrink: 0; }
@@ -412,9 +414,10 @@
         .btn-cookie-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
         .btn-cookie-secondary:hover { border-color: var(--border-hover); background: rgba(245,158,11,0.05); }
         @media (max-width: 768px) {
-            .cookie-banner { flex-direction: column; text-align: center; padding: 16px; bottom: 80px; gap: 12px; left: 16px; right: 16px; }
-            .cookie-buttons { width: 100%; justify-content: center; flex-wrap: wrap; }
-            .btn-cookie { padding: 10px 16px; font-size: 0.8rem; }
+            .cookie-banner { flex-direction: column; text-align: center; padding: 14px 16px; bottom: 90px; gap: 10px; left: 16px; right: 16px; z-index: 10000 !important; background: var(--bg-secondary) !important; opacity: 0; visibility: hidden; }
+            .cookie-banner.show { opacity: 1 !important; visibility: visible !important; }
+            .cookie-buttons { width: 100%; justify-content: center; flex-wrap: wrap; gap: 8px; }
+            .btn-cookie { padding: 8px 14px; font-size: 0.8rem; }
         }
 
     
@@ -453,10 +456,17 @@
         .back-to-top:active { transform: scale(0.95); }
         @media (max-width: 768px) {
             .back-to-top { width: 48px; height: 48px; font-size: 1.1rem; }
-        }
-        .sticky-row { display: flex; gap: 10px; align-items: flex-end; }
-        @media (max-width: 768px) {
-            .sticky-row { gap: 8px; }
+            .hero-visual-card, .service-card, .why-card, .contact-card, .map-wrapper, .legal-item, .hero-visual-bg { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+            .gradient-orb, .orb-1, .orb-2, .orb-3 { display: none !important; }
+            .back-to-top, .sticky-btn-primary { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+            .process-step:hover .step-number { transform: none; box-shadow: none; }
+            .service-card:hover .service-icon { transform: none; }
+            .why-card:hover .why-icon { transform: none; }
+            .legal-item.active { box-shadow: none; }
+            .visual-icon { animation: none; }
+            .hero-visual-bg { animation: none; }
+            .cookie-banner { background: var(--bg-secondary) !important; z-index: 10000 !important; bottom: 90px !important; padding: 14px 16px !important; }
+            .btn-cookie { padding: 8px 14px !important; font-size: 0.8rem !important; }
         }
 
     </style>
@@ -900,11 +910,8 @@
     </footer>
 
     <div class="sticky-cta" aria-label="Быстрые действия">
-        <button class="sticky-btn sticky-btn-secondary" id="stickyPhone" aria-label="Позвонить"><span>📞</span> +375 (29) 364-17-18</button>
-        <div class="sticky-row">
-            <button class="back-to-top" id="backToTop" aria-label="Наверх" onclick="scrollToTop()">↑</button>
-            <a href="tel:+375293641718" class="sticky-btn sticky-btn-primary" aria-label="Позвонить сейчас"><span>📞</span></a>
-        </div>
+        <button class="back-to-top" id="backToTop" aria-label="Наверх" onclick="scrollToTop()">↑</button>
+        <a href="tel:+375293641718" class="sticky-btn sticky-btn-primary" aria-label="Позвонить сейчас"><span>📞</span></a>
     </div>
 
     
@@ -959,11 +966,13 @@
         document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
         // Sticky CTA visibility
-        const stickyPhone = document.getElementById('stickyPhone');
         const heroSection = document.querySelector('.hero');
+        const backToTopBtn = document.getElementById('backToTop');
         const heroObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                stickyPhone.classList.toggle('visible', !entry.isIntersecting);
+                if (backToTopBtn) {
+                    backToTopBtn.classList.toggle('visible', !entry.isIntersecting);
+                }
             });
         }, { threshold: 0 });
         heroObserver.observe(heroSection);
@@ -1033,7 +1042,10 @@
             document.getElementById('cookieBanner').classList.remove('show');
         }
         if (!localStorage.getItem('cookieConsent')) {
-            setTimeout(() => document.getElementById('cookieBanner').classList.add('show'), 1200);
+            setTimeout(() => {
+                const cb = document.getElementById('cookieBanner');
+                if (cb) cb.classList.add('show');
+            }, 800);
         }
 
     
@@ -1041,12 +1053,6 @@
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        const backToTopBtn = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if (backToTopBtn) {
-                backToTopBtn.classList.toggle('visible', window.pageYOffset > 400);
-            }
-        }, { passive: true });
 
         // Logo click scroll to top
         document.querySelectorAll('.logo').forEach(logo => {
